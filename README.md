@@ -1,0 +1,2 @@
+# pyside-projekti
+pyside-harjoitus
