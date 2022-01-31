@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from quiz_ui import Ui_MainWindow
 from questions import lataa_kysymykset_netista
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
