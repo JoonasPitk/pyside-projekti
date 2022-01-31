@@ -20,14 +20,16 @@ KYSYMYKSET_JA_VASTAUKSET = [
     )
 ]
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.vaihda_kysymykset_ja_vastaukset(0)
+        self.vaihda_kysymys_ja_vastaukset(0)
+        self.kytke_napit()
 
-    def vaihda_kysymykset_ja_vastaukset(self, indeksi):
+    def vaihda_kysymys_ja_vastaukset(self, indeksi):
         tekstit = KYSYMYKSET_JA_VASTAUKSET[indeksi]
         uudet_tekstit = []
         for (numero, teksti) in enumerate(tekstit):
@@ -50,6 +52,29 @@ class MainWindow(QMainWindow):
 
     def aseta_kysymys(self, kysymys):
         self.ui.label.setText(kysymys)
+
+    def kytke_napit(self):
+        self.ui.pushButton.clicked.connect(self.nappia_painettu)
+        self.ui.pushButton_2.clicked.connect(self.nappia_painettu)
+        self.ui.pushButton_3.clicked.connect(self.nappia_painettu)
+        self.ui.pushButton_4.clicked.connect(self.nappia_painettu)
+
+    def nappia_painettu(self):
+        if self.sender() == self.ui.pushButton:
+            nappi = 1
+        elif self.sender() == self.ui.pushButton_2:
+            nappi = 2
+        elif self.sender() == self.ui.pushButton_3:
+            nappi = 3
+        elif self.sender() == self.ui.pushButton_4:
+            nappi = 4
+        else:
+            return
+
+        if nappi == self.oikea_vastaus:
+            print('Oikein!')
+
+        print('PAINETTU NAPPIA')
 
 
 if __name__ == "__main__":
