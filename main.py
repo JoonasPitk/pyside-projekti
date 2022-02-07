@@ -15,6 +15,7 @@ class MainWindow(QMainWindow):
         self.tiedot = lataa_kysymykset_netista()
         self.vaihda_kysymys_ja_vastaukset(0)
         self.kytke_napit()
+        self.kierros = 1
         self.pisteet = 0
         self.indeksi = 0
 
@@ -27,6 +28,8 @@ class MainWindow(QMainWindow):
                 self.oikea_vastaus = numero
             uudet_tekstit.append(teksti)
         self.aseta_tekstit(uudet_tekstit)
+        # Aseta kysymysnumero.
+        self.ui.nro_label.setText(f'{indeksi+1}/{len(self.tiedot)}')
 
     def aseta_tekstit(self, tekstit):
         self.aseta_kysymys(tekstit[0])
@@ -67,21 +70,40 @@ class MainWindow(QMainWindow):
             napin_vari = 'rgb(0,255,0)'
         else:
             napin_vari = 'rgb(255,0,0)'
-        
-        painettu_nappi.setStyleSheet('QPushButton {background: ' + napin_vari + ';}')
+
+        painettu_nappi.setStyleSheet(
+            'QPushButton {background: ' + napin_vari + ';}')
         QApplication.processEvents()
-        time.sleep(1)
+        time.sleep(0.25)
         painettu_nappi.setStyleSheet('')
 
+        self.seuraava_kysymys()
+
+    def seuraava_kysymys(self):
         self.indeksi += 1
         if self.indeksi >= len(self.tiedot):
             laatikko = QMessageBox(self)
             laatikko.setText(f'Peli päättyi. Pisteesi: {self.pisteet}')
             laatikko.exec()
+            self.kierros += 1
             self.indeksi = 0
             self.pisteet = 0
 
         self.vaihda_kysymys_ja_vastaukset(self.indeksi)
+
+    @property
+    def pisteet(self):
+        return self._pisteet
+
+    @pisteet.setter
+    def pisteet(self, arvo):
+        self._pisteet = arvo
+        self.paivita_tilarivi()
+
+    def paivita_tilarivi(self):
+        self.ui.statusbar.showMessage(
+            f'Pisteet: {self.pisteet} | Kierros: {self.kierros}'
+        )
 
 
 if __name__ == "__main__":
