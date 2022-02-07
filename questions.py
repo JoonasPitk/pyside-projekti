@@ -1,6 +1,5 @@
 import html
 import random
-from socket import timeout
 import requests
 
 API_OSOITE = 'https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple'
