@@ -110,7 +110,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Quiz", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Kysymys", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"A", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"B", None))
